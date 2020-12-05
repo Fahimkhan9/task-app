@@ -1,1 +1,2 @@
 export const ADD_TO_TASKLIST = "ADD_TO_TASKLIST";
+export const ADD_TASK_TO_TASKLIST = "ADD_TASK_TO_TASKLIST";

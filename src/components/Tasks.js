@@ -1,4 +1,4 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useState } from "react";
 import "../App.css";
 import TasksCard from "./TasksCard";
@@ -7,12 +7,13 @@ import { addToTaskList } from "../redux/action";
 
 const Tasks = () => {
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch();
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [listTaskTitle, setListTaskTite] = useState("");
-  const [errorText, setErrorText] = useState("");
   const listOfTasks = useSelector((state) => state.tasksReducer.tasklist);
+  const dispatch = useDispatch();
+
+  const handleClose = () => setShow(false);
+
+  const handleShow = () => setShow(true);
 
   const handleAddList = () => {
     dispatch(addToTaskList(listTaskTitle));
@@ -21,12 +22,14 @@ const Tasks = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
+    <Container>
+      <Row>
         {listOfTasks.map((listoftasksdata) => (
-          <TasksCard listoftasksdata={listoftasksdata} />
+          <Col md={4}>
+            <TasksCard listoftasksdata={listoftasksdata} />
+          </Col>
         ))}
-      </div>
+      </Row>
 
       <Button variant="primary" className="add-icon" onClick={handleShow}>
         Launch demo modal
@@ -39,14 +42,14 @@ const Tasks = () => {
             className="form-control"
             placeholder="New List"
             onChange={(e) => setListTaskTite(e.target.value)}
+            required
           />
           <Button variant="primary" onClick={handleAddList}>
             Save Changes
           </Button>
         </div>
-        <p className="text-danger">{errorText}</p>
       </Modal>
-    </div>
+    </Container>
   );
 };
 
